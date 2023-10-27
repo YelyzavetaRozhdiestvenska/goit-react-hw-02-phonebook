@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GlobalStyle from './globalStyle';
 import { Formik, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
-// import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid';
 import { StyledForm, Phonebook, ContactList, ContactItem } from './App.styled';
 
 
@@ -21,19 +21,33 @@ const schema = Yup.object().shape({
 
 export class App extends Component {
   state = {
-   contacts: [],
+   contacts: [{id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+   {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
+   {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
+   {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},],
    name: '',
    number: ''
   }
+
+
+
+  addContact = ({name, number}) => {
+    let newContact = {
+      name,
+      number,
+      id: nanoid()
+    }
+    this.addName({name, number})
+    // alert(newContact.name)
+    // alert(this.state.contacts)
+    this.setState({contacts: [ ...this.state.contacts, newContact]});
+  }
+
+  addName = ({name, number}) => {
+    this.setState({name, number})
+  }
   
-
-  addContact = newContact => {
-    this.setState(prevState => {
-      return {contacts: [ ...prevState.contacts, newContact]}
-      })};
-
-
-
+  
   render() {
     return (
       <Phonebook >
@@ -44,10 +58,11 @@ export class App extends Component {
         number: ''
       }}
       validationSchema={schema}
-      // onSubmit={(values, actions) => {
-      //   onAdd ({ ...values, id: nanoid() });
-      //   actions.resetForm();
-      // }}
+      onSubmit={(values, actions) => {
+        this.addContact(values);
+        actions.resetForm();
+      }}
+
     >
       <StyledForm>
         <label>Name     
@@ -67,7 +82,7 @@ export class App extends Component {
     <ContactList>
     <ContactItem key={this.state.contacts.id}>
             <p>
-              {this.state.contacts.name}: {this.state.contacts.number}
+              {this.state.name}: {this.state.number}
             </p>
             <button>Delete</button>
           </ContactItem>
@@ -78,3 +93,4 @@ export class App extends Component {
     );
   };
 };
+
