@@ -21,14 +21,30 @@ const schema = Yup.object().shape({
 
 export class App extends Component {
   state = {
-   contacts: [{id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+   contacts: [
+   {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},],
+   filter: '',
    name: '',
    number: ''
   }
 
+  getContact = evt => {
+    this.setState({filter: evt.target.value});
+  };
+
+  getVisibleContact = ({contacts, filter}) => {
+    this.setState ({contacts: this.state.contacts.filter(contact => contact.name.toLowerCase().includes(this.state.filter.name.toLowerCase()) ),
+    });
+  };
+    
+   
+  handleDeleteContact = contactId => {
+    this.setState ({contacts: this.state.contacts.filter(contact => contact.id !== contactId),
+    });
+  };
 
 
   addContact = ({name, number}) => {
@@ -37,7 +53,12 @@ export class App extends Component {
       number,
       id: nanoid()
     }
+
     this.addName({name, number})
+
+    if (this.state.contacts.find(contact => contact.name === newContact.name)) {
+      return alert(`${newContact.name} is already in contacts`);
+    }
     // alert(newContact.name)
     // alert(this.state.contacts)
     this.setState({contacts: [ ...this.state.contacts, newContact]});
@@ -78,15 +99,20 @@ export class App extends Component {
     </Formik>
     <div className='contactlist'><h2>Contacts</h2>
     <p>Find contacts by name</p>
-    <input type="text" name="name"></input>
-    <ContactList>
-    <ContactItem key={this.state.contacts.id}>
+    <input type="text" name="name" value={this.filter}
+        onChange={this.getContact}></input>
+    <ContactList handleDelete = {this.state.handleDelete}  visibleContact={this.getVisibleContact}>
+      {this.state.contacts.map(contact => {
+        return (
+          <ContactItem key={this.state.contacts.id}>
             <p>
-              {this.state.name}: {this.state.number}
+            {contact.name}: {contact.number}
             </p>
-            <button>Delete</button>
+            <button onClick={() => this.handleDeleteContact(contact.id)}>Delete</button>
           </ContactItem>
-         </ContactList>
+        );
+      })}
+    </ContactList>
     </div>
      <GlobalStyle /> 
   </Phonebook>
