@@ -14,6 +14,6 @@ padding: 10px;
 
 `;
 
-export const DeleteButton = styled.button`
+export const DeletButton = styled.button`
 margin-left: auto;
 `;
