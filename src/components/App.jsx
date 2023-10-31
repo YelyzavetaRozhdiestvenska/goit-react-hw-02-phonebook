@@ -6,7 +6,7 @@ import { Filter } from './filter/Filter';
 // import { Formik, Field, ErrorMessage} from 'formik';
 // import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
-import { Phonebook, ContactItem, DeleteButton } from './App.styled';
+import { Phonebook } from './App.styled';
 
 
 export class App extends Component {
@@ -16,7 +16,7 @@ export class App extends Component {
    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},],
-   filter: [],
+   filter: '',
    name: '',
    number: ''
   }
