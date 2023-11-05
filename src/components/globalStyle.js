@@ -55,5 +55,5 @@ button:hover {
   top: 5px;
 }
 `;
- 
+
 export default GlobalStyle;

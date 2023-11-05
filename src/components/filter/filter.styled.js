@@ -1,5 +1,3 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const Filter = styled.input`
-
-`;
+export const Filter = styled.input``;

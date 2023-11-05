@@ -1,23 +1,20 @@
-import styled from "styled-components";
-import { Form } from "formik";
-
+import styled from 'styled-components';
+import { Form } from 'formik';
 
 export const StyledForm = styled(Form)`
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-justify-content: center;
-gap: 20px;
-width: 300px;
-padding: 10px;
-background-color: #FFFDD0;
-border: 2px solid #808080;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  width: 300px;
+  padding: 10px;
+  background-color: #fffdd0;
+  border: 2px solid #808080;
 `;
 
-
-
 export const StyledLabel = styled.label`
-padding: 3px;
+  padding: 3px;
 `;
 
 export const StyledButton = styled.button`
