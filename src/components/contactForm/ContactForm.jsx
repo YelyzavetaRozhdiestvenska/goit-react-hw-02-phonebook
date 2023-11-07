@@ -10,7 +10,7 @@ const schema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
-  number: Yup.string().matches(phoneRegExp).required('Required'),
+  number: Yup.string().matches(phoneRegExp, 'Number(xxx-xx-xx)!').min(9, 'Too Short!').required('Required'),
 });
 
 export function ContactForm({ addContact }) {
